@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>天气app</title>
+    <link rel="stylesheet" href="./font/iconfont.css">
+    <script src="rem.js"></script>
+
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            -webkit-text-size-adjust: none;
+            text-decoration: none;
+            font-family: "宋体";
+            font-weight: normal;
+        }
+        .all{
+            height: 100%;
+            width: 100%;
+            background: #f5f5f5;
+            position: relative;
+        }
+        header{
+            height: 12rem;
+            width: 100%;
+            background: #3bbdff;
+            /*background: -webkit-gradient(#000000,#3bbdff);*/
+            position: relative;
+        }
+        .header-nav{
+            height: 1.5rem;
+            width: 100%;
+            /*background: red;*/
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.5rem;
+            font-size: 0.42rem;
+            position: relative;
+        }
+        .header-nav>i{
+            font-size: 0.42rem;
+            color: #ffffff;
+        }
+        .header-nav>span>i{
+            font-size: 0.42rem;
+            color: #3bbdff;
+        }
+        .header-nav>span{
+            display:block;
+            height: 0.73rem;
+            width: 0.66rem;
+            position: absolute;
+            top: 0.33rem;
+            right: 0.33rem;
+            text-align: center;
+            line-height: 0.73rem;
+            background: #ffffff;
+        }
+        .center{
+            height: 1.28rem;
+            width: 2.1rem;
+            background: #f1ab62;
+            position: absolute;
+            top: 1.75rem;
+            left: 0.27rem;
+            border-radius: 0.1rem;
+        }
+        .center>h5{
+            font-size: 0.32rem;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.18rem 0 0.12rem 0;
+        }
+        .center>p{
+            font-size: 0.36rem;
+            color: #FFFFFF;
+            text-align: center;
+        }
+        header>h1{
+            color: #ffffff;
+            text-align: center;
+            padding: 1.9rem 0 0 0;
+            position: relative;
+            font-size: 1.31rem;
+        }
+        header>h1>span{
+            position: absolute;
+            top: 1.9rem;
+            right: 3.4rem;
+        }
+        header>h2{
+            font-size: 0.54rem;
+            text-align: center;
+            color: #FFFFFF;
+            padding-bottom: 0.37rem;
+        }
+        header>h3{
+            font-size: 0.34rem;
+            text-align: center;
+            color: #FFFFFF;
+        }
+        .bottom{
+            font-size: 0.44rem;
+            padding-top: 1.32rem;
+            color: #ffffff;
+            text-align: center;
+        }
+        .pix{
+            display: block;
+            width: 100%;
+            padding-top: 1.75rem;
+        }
+        nav{
+            height: 2.94rem;
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid #e4e4e4;
+            margin-bottom:0.27rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        nav>.first{
+            height: 100%;
+            width: 50%;
+            /*background: green;*/
+        }
+        nav>.first>p:nth-child(1){
+            padding-left: 0.6rem;
+            padding-right: 0.6rem;
+            padding-top: 0.84rem;
+            font-size: 0.34rem;
+            color: #000000;
+            display: flex;
+            justify-content: space-between;
+        }
+        nav>.first>p:nth-child(2){
+            padding-left: 0.6rem;
+            padding-right: 0.6rem;
+            padding-top: 0.36rem;
+            font-size: 0.38rem;
+            color: #000000;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        nav>.last>p:nth-child(1){
+            padding-left: 0.6rem;
+            padding-right: 0.6rem;
+            padding-top: 0.84rem;
+            font-size: 0.34rem;
+            color: #000000;
+            display: flex;
+            justify-content: space-between;
+        }
+        nav>.last>p:nth-child(2){
+            padding-left: 0.6rem;
+            padding-right: 0.6rem;
+            padding-top: 0.36rem;
+            font-size: 0.38rem;
+            color: #000000;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        nav>.last{
+            height: 100%;
+            width: 50%;
+            border-left: 0.01rem solid #e4e4e4;
+            /*background:blue;*/
+        }
+        .nav{
+            height: 2.94rem;
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 0.02rem solid #e4e4e4;
+            border-top: 0.02rem solid #e4e4e4;
+            margin-bottom:0.27rem;
+            margin-top: 0.27rem;
+            display: flex;
+            overflow-x: scroll;
+        }
+
+        .bottom-b{
+            height: 11.2rem;
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 0.02rem solid #e4e4e4;
+            border-top: 0.02rem solid #e4e4e4;
+            margin-bottom:0.27rem;
+            margin-top: 0.27rem;
+            display: flex;
+            overflow-x: scroll;
+        }
+        .list{
+            height: 5.36rem;
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 0.02rem solid #e4e4e4;
+            border-top: 0.02rem solid #e4e4e4;
+            margin-top: 0.27rem;
+        }
+        footer{
+            height: 1.1rem;
+            width: 100%;
+            text-align: center;
+            color: #5e7387;
+            font-size: 0.28rem;
+            line-height: 1.1rem;
+        }
+        .foot{
+            height: 100%;
+            width:100%;
+            /*background: red;*/
+        }
+        .nav>ul{
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav>ul>li{
+            height: 100%;
+            width: 1.5rem;
+            /*background: red;*/
+            margin:0 0.2rem;
+        }
+        .pix1{
+            display: block;
+            height: 0.88rem;
+            width: 0.88rem;
+            position: absolute;
+            top: 0.2rem;
+            right: 0.4rem;
+            background: url("./img/5.png") no-repeat;
+
+        }
+        .pix2{
+            display: block;
+            height: 0.88rem;
+            width: 0.88rem;
+            position: absolute;
+            top: 0.2rem;
+            right: 0.4rem;
+            background: url("./img/5.png") no-repeat;
+
+        }
+        .nav>ul>li>div:nth-child(1){
+            width: 100%;
+            text-align: center;
+            font-size: 0.24rem;
+            color: #5e7387;
+            padding-top: 0.45rem;
+        }
+        .nav>ul>li>img{
+            display: block;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        .nav>ul>li>div:nth-child(3){
+            font-size: 0.28rem;
+            width: 100%;
+            text-align: center;
+            padding-top: 0.25rem;
+        }
+        .bottom-b>ul{
+            height: 100%;
+            display: flex;
+            justify-content:space-between;
+            flex-grow: 0;
+        }
+        .bottom-b>ul>li{
+            width: 1.25rem;
+            height: 100%;
+            /*background: red;*/
+        }
+        /*.bottom-b>ul>li>p:nth-child(1){*/
+            /*padding-top: 0.72rem;*/
+            /*font-size: 0.24rem;*/
+            /*color: #5e7387;*/
+            /*text-align: center;*/
+        /*}*/
+        .bottom-b>ul>li>p:nth-child(2){
+            padding-top: 1.2rem;
+            font-size: 0.24rem;
+            color: #5e7387;
+            text-align: center;
+        }
+        .bottom-b>ul>li>p:nth-child(3){
+            padding-top: 0.44rem;
+            font-size: 0.24rem;
+            color: #5e7387;
+            text-align: center;
+        }
+        .pix3{
+            display: block;
+            padding-top: 0.6rem;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        .bottom-b>ul>li>p:nth-child(5){
+            padding-top: 0.78rem;
+            font-size: 0.24rem;
+            color: #5e7387;
+            text-align: center;
+        }
+        .bottom-b>ul>li>p:nth-child(6){
+            padding-top: 1.76rem;
+            font-size: 0.24rem;
+            color: #5e7387;
+            text-align: center;
+        }
+        .pix4{
+            padding-top: 1.06rem;
+            display:block;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        .bottom-b>ul>li>p:nth-child(8){
+            padding-top: 0.44rem;
+            font-size: 0.24rem;
+            color: #5e7387;
+            text-align: center;
+        }
+        .bottom-b>ul>li>p:nth-child(9){
+            padding-top: 0.48rem;
+            font-size: 0.24rem;
+            color: #5e7387;
+            text-align: center;
+        }
+        .bottom-b>ul>li>p:nth-child(10){
+            padding-top: 0.16rem;
+            font-size: 0.24rem;
+            color: #5e7387;
+            text-align: center;
+        }
+        .list>li{
+            width: 25%;
+            height: 50%;
+            /*background: blue;*/
+            border: 0.01rem solid #e4e4e4;
+        }
+        .list{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            flex-grow: 0;
+        }
+        .list>li>p:nth-child(2){
+            font-size: 0.4rem;
+            text-align: center;
+            color: #434343;
+        }
+        .list>li>p:nth-child(3){
+            font-size: 0.32rem;
+            text-align: center;
+            color: #999999;
+            line-height: 1.8;
+        }
+        .list>li>div>i{
+            font-size: 0.54rem;
+            color: #c1a4e0;
+        }
+        .list>li>div{
+            text-align: center;
+        }
+        .search{
+            background: #ffffff;
+            padding: 0.2rem 0.36rem;
+            display: none;
+
+        }
+        .search-header{
+            height: 0.85rem;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .search-header>input{
+            width: 6.1rem;
+            border-radius: 0.5rem;
+            border: 0.01rem solid #5e7387;
+            padding: 0 0.2rem;
+            outline: none;
+        }
+        .search-header>span{
+            font-size: 0.32rem;
+            display: block;
+            line-height: 2.5;
+        }
+        .search-list>p{
+            font-size: 0.36rem;
+        }
+        .search-list-b{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .search-list-b>li{
+            height: 0.8rem;
+            width: 2.16rem;
+            background: #cccccc;
+            font-size: 0.3rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            line-height: 0.8rem;
+            margin: 0.2rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="all">
+    <div class="search">
+        <div class="search-header">
+            <input type="text" placeholder="搜索市、县、区等">
+            <span>取消</span>
+        </div>
+        <ul class="search-list">
+            <!--<li class="search-list-a">-->
+                <!--<p></p>-->
+                <!--<ul class="search-list-b">-->
+                    <!--<li></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<p>历史记录</p>-->
+                <!--<ul>-->
+                    <!--<li>拉萨</li>-->
+                    <!--<li>上海</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<p>热门城市</p>-->
+                <!--<ul>-->
+                    <!--<li>北京</li>-->
+                    <!--<li>上海</li>-->
+                    <!--<li>天津</li>-->
+                    <!--<li>太原</li>-->
+                    <!--<li>深圳</li>-->
+                    <!--<li>重庆</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<p>城市</p>-->
+                <!--<ul>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                    <!--<li>故宫</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        </ul>
+    </div>
+    <header>
+        <p class="header-nav">
+            <i class="iconfont icon-address"></i>
+            太原市 阳曲县
+            <span>
+                <i class="iconfont icon-tupian"></i>
+            </span>
+        </p>
+
+        <div class="center">
+           <h5>空气</h5>
+            <p>轻度污染</p>
+        </div>
+        <h1>
+            0
+            <span>°</span>
+        </h1>
+        <h2>晴</h2>
+        <h3>湿度 28%</h3>
+        <p class="bottom">天冷了，注意保暖~</p>
+        <img src="./img/screen.png" alt="" class="pix">
+    </header>
+    <div class="foot">
+        <nav>
+            <div class="first">
+                <p>
+                    <span>今天</span>
+                    <span>2/-11°C</span>
+                </p>
+                <p>
+                    <span>晴转多云</span>
+                    <span class="pix2"></span>
+                </p>
+            </div>
+            <div class="last">
+                <p>
+                    <span>明天</span>
+                    <span>2/-11°C</span>
+                </p>
+                <p>
+                    <span>晴转多云</span>
+                    <span class="pix1"></span>
+                </p>
+            </div>
+        </nav>
+        <div class="nav">
+            <ul>
+                <li>
+                    <div>12:00</div>
+                    <img src="./img/10.png" alt="">
+                    <div>-1°</div>
+                </li>
+            </ul>
+        </div>
+        <div class="bottom-b">
+            <ul>
+                <li>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <img src="" alt="" class="pix3">
+                    <p></p>
+                    <p></p>
+                    <img src="" alt="" class="pix4">
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </li>
+            </ul>
+        </div>
+        <ul class="list">
+            <li>
+                <div>
+                    <i class="iconfont icon-yusan"></i>
+                </div>
+                <p>不带伞</p>
+                <p>雨伞</p>
+            </li>
+            <li>
+                <div>
+                    <i class="iconfont icon-yifu"></i>
+                </div>
+                <p>冷</p>
+                <p>衣服</p>
+            </li>
+            <li>
+                <div>
+                    <i class="iconfont icon-iconset0451"></i>
+                </div>
+                <p>较弱</p>
+                <p>防晒</p>
+            </li>
+            <li>
+                <div>
+                    <i class="iconfont icon-yao"></i>
+                </div>
+                <p>较易发</p>
+                <p>感冒</p>
+            </li>
+            <li>
+                <div>
+                    <i class="iconfont icon-icon5"></i>
+                </div>
+                <p>较不宜</p>
+                <p>运动</p>
+            </li>
+            <li>
+                <div>
+                    <i class="iconfont icon-xc"></i>
+                </div>
+                <p>较适宜</p>
+                <p>洗车</p>
+            </li>
+            <li>
+                <div>
+                    <i class="iconfont icon-yu"></i>
+                </div>
+                <p>不宜</p>
+                <p>钓鱼</p>
+            </li>
+            <li>
+                <div>
+                    <i class="iconfont icon-jiaotong"></i>
+                </div>
+                <p>良好</p>
+                <p>交通</p>
+            </li>
+        </ul>
+        <footer>
+            数据来源于中国天气网
+        </footer>
+    </div>
+</div>
+</body>
+<script src="../jquery/jquery-3.3.1.min.js"></script>
+<script src="天气.js"></script>
+
+</html>
